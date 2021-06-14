@@ -35,6 +35,9 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import Item from "views/Item/Item";
+import Sell from "views/Sell/Sell";
+import TrackOrder from "views/Sell/TrackOrder";
 
 const dashboardRoutes = [
   {
@@ -43,6 +46,30 @@ const dashboardRoutes = [
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
+    layout: "/admin",
+  },
+  {
+    path: "/items",
+    name: "Products",
+    rtlName: "لوحة القيادة",
+    icon: LibraryBooks,
+    component: Item,
+    layout: "/admin",
+  },
+  {
+    path: "/sell",
+    name: "Sell History",
+    rtlName: "لوحة القيادة",
+    icon: LibraryBooks,
+    component: Sell,
+    layout: "/admin",
+  },
+  {
+    path: "/order-history",
+    name: "Track An Order",
+    rtlName: "لوحة القيادة",
+    icon: LibraryBooks,
+    component: TrackOrder,
     layout: "/admin",
   },
   {

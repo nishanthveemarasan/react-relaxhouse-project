@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 // react plugin for creating charts
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,22 +22,39 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { getDashboardData } from "store/action/dashboard-action";
+import API from "axios/axios";
+import { dashboardActions } from "store";
 import Table from "components/Table/Table";
+import PopTable from "../../components/Table/PopTable";
 
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    API.get("get-dashboard-data")
+      .then((response) => {
+        if (response.data.http_status == "200") {
+          dispatch(dashboardActions.getAllDashBoardData(response.data.data));
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, [dispatch]);
   const mapStateToProps = (state) => {
     return {
       users: state.dashboardStore.totalUsers,
-      orders: state.dashboardStore.totalOrders,
+      orders: state.dashboardStore.totalComments,
       posts: state.dashboardStore.totalPosts,
       products: state.dashboardStore.totalProducts,
-      popularItems: state.dashboardStore.popularItems,
+      popItems: state.dashboardStore.popularItems,
       recentOrders: state.dashboardStore.recentOrders,
     };
   };
   const state = useSelector(mapStateToProps);
+
   const classes = useStyles();
   return (
     <div>
@@ -125,7 +142,7 @@ export default function Dashboard() {
               </p>
             </CardHeader>
             <CardBody>
-              <Table />
+              <PopTable tableData={state.popItems} />
             </CardBody>
           </Card>
         </GridItem>
@@ -138,7 +155,7 @@ export default function Dashboard() {
               </p>
             </CardHeader>
             <CardBody>
-              <Table />
+              <Table tableData={state.recentOrders} />
             </CardBody>
           </Card>
         </GridItem>
