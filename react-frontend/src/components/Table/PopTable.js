@@ -1,28 +1,24 @@
 import React, { Fragment } from "react";
 import Pagination from "./Pagination";
 
-const Table = (props) => {
+const PopTable = (props) => {
   return (
     <Fragment>
       <table className="table">
         <thead>
           <tr>
             <th>Id</th>
-            <th>Order No</th>
             <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Status</th>
+            <th>Total Sell Count</th>
           </tr>
         </thead>
         <tbody>
-          {props.tableData.map((item) => {
+          {props.tableData.map((item, index) => {
             return (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.order_number}</td>
+              <tr key={index}>
+                <td>{(index += 1)}</td>
+                <td>{item.total}</td>
                 <td>{item.itemname}</td>
-                <td>{item.sellcount}</td>
-                <td>{item.sell_type}</td>
               </tr>
             );
           })}
@@ -32,4 +28,4 @@ const Table = (props) => {
   );
 };
 
-export default Table;
+export default PopTable;
