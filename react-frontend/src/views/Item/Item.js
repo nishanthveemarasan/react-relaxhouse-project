@@ -15,6 +15,8 @@ import { productStoreAction } from "store";
 import Pagination from "components/Table/Pagination";
 import Modals from "components/Modal/Modal";
 import ItemModal from "components/Modal/Content/ItemModal";
+import { getProductData } from "store/product-slice";
+import ProductModel from "components/Modal/create/ProductModel";
 const useStyles = makeStyles(styles);
 const Item = () => {
   const mapStateToProps = (state) => {
@@ -22,37 +24,30 @@ const Item = () => {
       chairs: state.productStore.chairs,
       isChairChanged: state.productStore.isChairChanged,
       isDataChanged: state.productStore.isDataChanged,
+      rowNumber: state.productStore.rowNumber,
     };
   };
   const state = useSelector(mapStateToProps);
   const dispatch = useDispatch();
   useEffect(() => {
     if (state.isDataChanged) {
-      API.get("get-all-chairs")
-        .then((response) => {
-          console.log("data", response.data);
-          dispatch(productStoreAction.isDataNotChange());
-          dispatch(
-            productStoreAction.getChairs({
-              chairs: response.data,
-            })
-          );
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      dispatch(getProductData(state.rowNumber));
     }
-  }, [state.isDataChanged]);
+  }, [state.isDataChanged, dispatch]);
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-  };
   const classes = useStyles();
+
+  const onOpenCreateProductHandler = () => {
+    dispatch(productStoreAction.createModel());
+  };
   return (
     <React.Fragment>
       <ItemModal />
+      <ProductModel />
       <div className="text-right">
-        <Button color="success">Add New Item</Button>
+        <Button color="success" onClick={onOpenCreateProductHandler}>
+          Add New Item
+        </Button>
       </div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>

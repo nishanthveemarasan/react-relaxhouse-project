@@ -5,7 +5,7 @@ import { productStoreAction } from "store";
 import FormInput from "components/UI/FormInput";
 import API from "axios/axios";
 import useInut from "hooks/user-input";
-import Alert from "components/UI/Alert";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 const ItemModal = (props) => {
   const {
     enteredInput: productCount,
@@ -45,8 +45,6 @@ const ItemModal = (props) => {
           setProductName(response.data.data[0].itemname);
           setProductCount(response.data.data[0].count);
         }
-
-        //  console.log("data2", response.data?.data[0].id);
       })
       .catch();
   }, [state.chairId]);
@@ -105,9 +103,8 @@ const ItemModal = (props) => {
       >
         {/* alert-success */}
         {state.showAlert && (
-          <Alert className="alert-success">{AlertText}</Alert>
+          <SnackbarContent message={AlertText} color="success" />
         )}
-        {AlertCode} {state.action}
         {hideForm && (
           <Fragment>
             <FormInput

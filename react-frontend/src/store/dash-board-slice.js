@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import API from "axios/axios";
+import { dashboardActions } from "store";
 
 const initialState = {
   totalUsers: 0,
@@ -23,5 +25,19 @@ const dashboardSlice = createSlice({
     },
   },
 });
+
+export const dashboardData = () => {
+  return (dispatch) => {
+    API.get("get-dashboard-data")
+      .then((response) => {
+        if (response.data.http_status == "200") {
+          dispatch(dashboardActions.getAllDashBoardData(response.data.data));
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+};
 
 export default dashboardSlice;

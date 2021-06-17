@@ -1,6 +1,7 @@
+import { useDate } from "hooks/get-date";
 import React from "react";
 import TablePagination from "./Pagination/Pagination";
-
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 const OrderHistory = (props) => {
   const data = props.tableData.data?.data;
 
@@ -26,7 +27,7 @@ const OrderHistory = (props) => {
                   <td>{order.order_number}</td>
                   <td>{order.itemname}</td>
                   <td>{order.sellcount}</td>
-                  <td>{order.created_at}</td>
+                  <td>{useDate(order.created_at)}</td>
                   <td>{order.sell_type}</td>
                 </tr>
               );

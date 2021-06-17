@@ -13,6 +13,7 @@ import API from "axios/axios";
 import Pagination from "components/Table/Pagination";
 import { orderStoreAction } from "store";
 import ProductModal from "components/Modal/Content/ProductModal";
+import OrderModel from "components/Modal/create/OrderModel";
 const useStyles = makeStyles(styles);
 
 const Sell = () => {
@@ -40,15 +41,25 @@ const Sell = () => {
     }
   }, [state.isDataChange]);
   const dispatch = useDispatch();
+
+  const onOpenCreateOrderHandler = () => {
+    dispatch(orderStoreAction.createOrderModel());
+  };
   const classes = useStyles();
   return (
     <React.Fragment>
       <ProductModal />
+      <OrderModel />
+      <div className="text-right">
+        <Button color="success" onClick={onOpenCreateOrderHandler}>
+          Make an Order
+        </Button>
+      </div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>SELL History</h4>
+              <h4 className={classes.cardTitleWhite}>ORDER History</h4>
               <p className={classes.cardCategoryWhite}>
                 New employees on 15th September, 2016
               </p>

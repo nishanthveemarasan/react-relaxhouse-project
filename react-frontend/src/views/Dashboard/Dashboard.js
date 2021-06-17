@@ -27,21 +27,14 @@ import API from "axios/axios";
 import { dashboardActions } from "store";
 import Table from "components/Table/Table";
 import PopTable from "../../components/Table/PopTable";
+import { dashboardData } from "store/dash-board-slice";
 
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   useEffect(() => {
-    API.get("get-dashboard-data")
-      .then((response) => {
-        if (response.data.http_status == "200") {
-          dispatch(dashboardActions.getAllDashBoardData(response.data.data));
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    dispatch(dashboardData());
   }, [dispatch]);
   const mapStateToProps = (state) => {
     return {

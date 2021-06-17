@@ -2,7 +2,6 @@ const TablePagination = (props) => {
   const to = props.paginationData.data?.to;
   const total = props.paginationData.data?.total;
   const links = props.paginationData.data?.links;
-
   const pageChangeHandler = (url) => {
     props.pageChangeHandler(url);
   };
