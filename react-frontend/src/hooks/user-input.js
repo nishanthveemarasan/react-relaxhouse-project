@@ -6,11 +6,15 @@ const useInut = (value) => {
     //  alert(event.target.value);
     setEnteredInput(event.target.value);
   };
+  const reset = (value) => {
+    setEnteredInput(value);
+  };
 
   return {
     enteredInput,
     setEnteredInput,
     onInputChangeHandler,
+    reset,
   };
 };
 

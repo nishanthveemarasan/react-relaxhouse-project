@@ -38,6 +38,10 @@ import RTLPage from "views/RTLPage/RTLPage.js";
 import Item from "views/Item/Item";
 import Sell from "views/Sell/Sell";
 import TrackOrder from "views/Sell/TrackOrder";
+import Logs from "views/Users/Logs";
+import Users from "views/Users/Users";
+import Comments from "views/Comments/Comments";
+import Posts from "views/Posts/Posts";
 
 const dashboardRoutes = [
   {
@@ -73,67 +77,43 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
+    path: "/user-logs",
+    name: "Logs",
+    rtlName: "لوحة القيادة",
+    icon: LibraryBooks,
+    component: Logs,
+    layout: "/admin",
+  },
+  {
+    path: "/users",
+    name: "Users",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: Users,
+    layout: "/admin",
+  },
+  {
+    path: "/comments",
+    name: "Comments",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: Comments,
+    layout: "/admin",
+  },
+  {
+    path: "/posts",
+    name: "Posts",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: Posts,
+    layout: "/admin",
+  },
+  {
     path: "/user",
     name: "User Profile",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
-    layout: "/admin",
-  },
-  {
-    path: "/table",
-    name: "Table List",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: TableList,
-    layout: "/admin",
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: LibraryBooks,
-    component: Typography,
-    layout: "/admin",
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart,
-    component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin",
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin",
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl",
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
     layout: "/admin",
   },
 ];

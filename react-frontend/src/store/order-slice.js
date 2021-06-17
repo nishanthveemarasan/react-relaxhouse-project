@@ -8,6 +8,8 @@ const initialState = {
   isLoading: false,
   showAlert: false,
   isDataChange: true,
+  isOrderCreateOpen: false,
+  orderList: [],
 };
 
 const orderSlice = createSlice({
@@ -44,6 +46,28 @@ const orderSlice = createSlice({
     },
     dataNotChanged(state) {
       state.isDataChange = false;
+    },
+    createOrderModel(state) {
+      state.isOrderCreateOpen = true;
+    },
+    closeOrderModel(state) {
+      state.isOrderCreateOpen = false;
+    },
+    changeList(state, action) {
+      const id = action.payload.id;
+      const key = action.payload.type;
+      const value = action.payload.value;
+      if (key === "status") {
+        state.orderList[id].status = value;
+      } else {
+        state.orderList[id].quantity = value;
+      }
+    },
+    addList(state, action) {
+      state.orderList.push(action.payload.data);
+    },
+    removeList(state, action) {
+      state.orderList.splice(action.payload.id, 1);
     },
   },
 });

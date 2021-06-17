@@ -1,5 +1,7 @@
 import { FastfoodOutlined } from "@material-ui/icons";
 import { createSlice } from "@reduxjs/toolkit";
+import API from "axios/axios";
+import { productStoreAction } from "store";
 
 const initialState = {
   chairs: [],
@@ -10,6 +12,8 @@ const initialState = {
   isLoading: false,
   showAlert: false,
   isDataChanged: true,
+  isProductCreateOpen: false,
+  rowNumber: 10,
 };
 
 const productSlice = createSlice({
@@ -55,7 +59,35 @@ const productSlice = createSlice({
     isDataNotChange(state) {
       state.isDataChanged = false;
     },
+    createModel(state) {
+      state.isProductCreateOpen = true;
+    },
+    closeCreateModel(state) {
+      state.isProductCreateOpen = false;
+    },
+    changeRowNumber(state, action) {
+      state.rowNumber = action.payload.rowNumber;
+    },
   },
 });
+
+export const getProductData = (rowNumber) => {
+  return (dispatch) => {
+    dispatch(productStoreAction.isLoading());
+    API.get(`get-all-chairs/${rowNumber}`)
+      .then((response) => {
+        dispatch(productStoreAction.isDataNotChange());
+        dispatch(productStoreAction.isCloseLoading());
+        dispatch(
+          productStoreAction.getChairs({
+            chairs: response.data,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+};
 
 export default productSlice;

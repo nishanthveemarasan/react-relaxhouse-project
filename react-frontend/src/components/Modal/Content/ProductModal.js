@@ -148,6 +148,7 @@ const ProductModal = () => {
               label="Order Satus"
               value={status}
               change={onStatusChange}
+              options={["Received", "Processing", "Packed", "Sent"]}
               readOnly={state.action !== "update" && "true"}
             />
             <FormTextarea

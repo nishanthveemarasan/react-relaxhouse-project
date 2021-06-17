@@ -17,6 +17,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import Home from "views/Home/Home";
 
 let ps;
 
@@ -34,6 +35,8 @@ const switchRoutes = (
       }
       return null;
     })}
+    <Route path="/home" component={Home} />
+
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
