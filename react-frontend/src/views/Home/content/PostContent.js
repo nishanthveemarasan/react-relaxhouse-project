@@ -7,16 +7,14 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 import { useDate } from "hooks/get-date";
 import { useTime } from "hooks/get-date";
 import { ThumsUpButton } from "components/UI/LikeButton";
-import { PostComment, WriteComment } from "./Comment";
+import { PostComment } from "./Comment";
+import Likes from "./Likes";
 
 const useStyles = makeStyles(styles);
 const PostContent = (props) => {
   const data = props.postData?.data;
   const classes = useStyles();
 
-  const onSubmitHandler = (data) => {
-    console.log(data);
-  };
   return (
     <React.Fragment>
       {data?.data &&
@@ -34,14 +32,9 @@ const PostContent = (props) => {
                 <CardBody>
                   <div className="text-justify">{post.content}</div>
                   <ThumsUpButton likes={post.likes_count} />
-                  {Number(post.comments_count) > 0 && (
-                    <PostComment commentData={post.comments} />
-                  )}
-                  <WriteComment
-                    onSubmitHandler={onSubmitHandler}
-                    id={post.id}
-                    key={post.id}
-                  />
+                  <Likes postid={post.id} />
+
+                  <PostComment id={post.id} key={post.id} />
                 </CardBody>
               </Card>
             </div>

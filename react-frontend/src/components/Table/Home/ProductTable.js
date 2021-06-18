@@ -25,7 +25,12 @@ const ProductHomeTable = (props) => {
           {chairData &&
             chairData.map((row, index) => {
               return (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={`${Number(row.count) <= 25 && "table-warning"} ${
+                    Number(row.count) == 25 && "table-danger"
+                  }`}
+                >
                   <td>{row.id}</td>
                   <td>{row.itemname}</td>
                   <td>{row.itemcode}</td>

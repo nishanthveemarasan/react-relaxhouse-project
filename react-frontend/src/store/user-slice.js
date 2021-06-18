@@ -9,6 +9,7 @@ const initialState = {
   actionData: "",
   isLoading: false,
   isDataChange: true,
+  singleUserData: "",
 };
 
 const userSlice = createSlice({
@@ -40,6 +41,9 @@ const userSlice = createSlice({
     dataDidChange(state) {
       state.isDataChange = true;
     },
+    getSingleData(state, action) {
+      state.singleUserData = action.payload.userData;
+    },
   },
 });
 
@@ -52,6 +56,25 @@ export const editUserRoles = (data) => {
       })
       .catch((error) => {
         dispatch(userStoreAction.stopLoadSubmit());
+        console.log(error.message);
+      });
+  };
+};
+
+export const getSingleUser = () => {
+  return (dispatch) => {
+    API.get("users/get-a-user/1")
+      .then((response) => {
+        if (response.data.http_status == "200") {
+          const userData = response.data.data;
+          dispatch(
+            userStoreAction.getSingleData({
+              userData,
+            })
+          );
+        }
+      })
+      .catch((error) => {
         console.log(error.message);
       });
   };

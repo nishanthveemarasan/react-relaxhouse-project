@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import commentSlice from "./comment-slice";
 import dashboardSlice from "./dash-board-slice";
+import likeSlice from "./like-slice";
 import orderSlice from "./order-slice";
 import postSlice from "./post-slice";
 import productSlice from "./product-slice";
@@ -14,6 +15,7 @@ const store = configureStore({
     userStore: userSlice.reducer,
     commentStore: commentSlice.reducer,
     postStore: postSlice.reducer,
+    likeStore: likeSlice.reducer,
   },
 });
 
@@ -23,5 +25,6 @@ export const orderStoreAction = orderSlice.actions;
 export const userStoreAction = userSlice.actions;
 export const commentStoreAction = commentSlice.actions;
 export const postStoreAction = postSlice.actions;
+export const likeStoreAction = likeSlice.actions;
 
 export default store;
