@@ -42,7 +42,6 @@ const MainNavigation = () => {
 
   useEffect(() => {
     function handleResize() {
-      console.log(window.innerWidth);
       if (window.innerWidth <= 768) {
         setHideNav(true);
       } else {

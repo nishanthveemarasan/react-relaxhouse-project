@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 // core components
@@ -14,7 +15,8 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
-
+import { getSingleUser } from "store/user-slice";
+import axios from "axios";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -37,7 +39,42 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
+  const [selectedImage, setSelectedImage] = useState("");
+  const mapStateToProps = (state) => {
+    return {
+      singleUserData: state.userStore.singleUserData,
+    };
+  };
+  useEffect(() => {
+    dispatch(getSingleUser());
+  }, [dispatch]);
+  const dispatch = useDispatch();
+  const state = useSelector(mapStateToProps);
   const classes = useStyles();
+  const fileSelectedHandler = (event) => {
+    console.log(event.target.files[0]);
+  //  setSelectedImage(event.target.files[0]);
+    const fd = new FormData();
+    fd.append("image", event.target.files[0], event.target.files[0].name);
+    console.log(fd);
+    axios
+      .post("https://react-db-4c80e-default-rtdb.firebaseio.com/posts.json", fd)
+      .then((response) => {
+        console.log(response);
+      });
+  };
+
+  const fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append("image", selectedImage, selectedImage.name);
+    console.log(fd);
+    axios
+      .post("https://react-db-4c80e-default-rtdb.firebaseio.com/posts.json", fd)
+      .then((response) => {
+        console.log(response);
+      });
+    // console.log(selectedImage);
+  };
   return (
     <div>
       <GridContainer>
@@ -50,16 +87,8 @@ export default function UserProfile() {
             <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Company (disabled)"
-                    id="company-disabled"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      disabled: true,
-                    }}
-                  />
+                  <input type="file" onChange={fileSelectedHandler} />
+                  <button onClick={fileUploadHandler}>Upload</button>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
@@ -154,9 +183,9 @@ export default function UserProfile() {
         <GridItem xs={12} sm={12} md={4}>
           <Card profile>
             <CardAvatar profile>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
+              <label>
                 <img src={avatar} alt="..." />
-              </a>
+              </label>
             </CardAvatar>
             <CardBody profile>
               <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
